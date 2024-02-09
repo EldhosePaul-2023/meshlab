@@ -1,4 +1,8 @@
-## IT Performance Analysis - Team 5 (Arjun Vishnu Prakash , Eldhose Paul)
+## IT Performance Analysis - Team 5
+#### Members:
+#### - Arjun Vishnu Prakash (44801)
+#### - Eldhose Paul (44887)
+<br>
 
 ### Table of Contents
 
@@ -181,12 +185,13 @@ All these steps are performed on the `controller`.
 2. Starting the [iperf3](https://iperf.fr/iperf-doc.php) server in namespace `sink` <br>
    `sudo ip netns exec itsys-d3-sink iperf3 -s`
 3. Start [tcpdump](https://www.tcpdump.org/manpages/tcpdump.1.html) in ns `sink` <br>
-   `sudo ip netns exec itsys-d3-sink sudo tcpdump -nei ul-sink -w <filename>.pcap`
+   `sudo ip netns exec itsys-d3-sink sudo tcpdump -nei ul-sink -s <size> -w <filename>.pcap`
 
 > Options used : <br>
 > * -n : disable DNS resolution <br>
 > * -e : capture packet headers <br>
 > * -i : specify the interface (`ul-sink`) <br>
+> * -s : lenght of data bytes to capture. For tcp 256 and for UDP 16
 > * -w : write output to file <br>
 
 4.Start traffic generation using iperf client on namespace `source` <br>
@@ -242,9 +247,12 @@ shell scripts.
 | 1 | [collect.sh](scripts/collect.sh) | Collect traces for a specified mode      |
 | 2 | [parse.sh](scripts/parse.sh)     | Filter and parse the pcap files into CSV |
 
-- such as timestamp and bitrate from the individual
-  trace files and filter it using the tools such as 
-  and  .After that we converted those trace files into .csv files.
+> For the script : [collect.sh](scripts/collect.sh), inorder to hide the IP address in script, we parameterised it using a separate `secrets.sh` that would contain :
+> ```
+> # To store IPs
+>
+> export IP_SINK=<IP of sink>
+> ```
 
 ### 5. Data Analysis & Plotting
 
@@ -258,12 +266,12 @@ Libraries used:
 - plotly
 - scipy
 
-Using [python](https://docs.python.org/3/tutorial/index.html) script
+With a [python](https://docs.python.org/3/tutorial/index.html) script using
 and [matplotlib](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.plot.html) and [plotly](https://plotly.com/python/) libraries, we have plotted the
 individual iterations into line graphs and calculated the mean, meadian and standard deviations for the 4
 forwarding techniques for both protocols (TCP and UDP). 
 
-We then plotted a summary graph into a box plot for performance comparison.
+We then plotted the summary into a box plot for performance comparison.
 
 ### 6. Results
 
