@@ -97,6 +97,9 @@ Firmware Version: 6.00 R1.20.2912.A1
   in a network. To separate all the other devices and it's networks from each other, they are grouped into VLANs. The
   controller has access to all of these VLANs, and thus has a connection to the `device` (using a virtual interface).
   Every connection between a `device` and the controller gets its own unique set of IP addresses.
+  <br>
+
+  `OpenWrt SNAPSHOT, r24403+283-c23b509d72`
 
 * Our team(team5) has unique ssh keys that authenticates and authorises our users to access the `device`. This key is
   used along with the device’s
